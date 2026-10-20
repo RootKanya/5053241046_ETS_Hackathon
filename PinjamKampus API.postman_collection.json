@@ -1,0 +1,366 @@
+{
+  "info": {
+    "_postman_id": "55ca80f5-a4fe-4dcc-ba79-bda1b2416700",
+    "name": "PinjamKampus API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "50409420",
+    "_collection_link": "https://go.postman.co/collection/50409420-55ca80f5-a4fe-4dcc-ba79-bda1b2416700?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Create Sumberdaya",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"nama\": \"Proyektor EPSON\",\r\n  \"jenis\": \"alat\",\r\n  \"stok\": 5\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/sumber-daya",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "sumber-daya"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "example",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"nama\": \"Proyektor EPSON\",\r\n  \"jenis\": \"alat\",\r\n  \"stok\": 5\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/sumber-daya",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "sumber-daya"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "content-type",
+              "value": "application/json"
+            },
+            {
+              "key": "date",
+              "value": "Tue, 20 Oct 2026 09:37:13 GMT"
+            },
+            {
+              "key": "content-length",
+              "value": "58"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"id\": 3,\n  \"nama\": \"Proyektor EPSON\",\n  \"jenis\": \"alat\",\n  \"stok\": 5\n}"
+        }
+      ]
+    },
+    {
+      "name": "Get All Sumber daya",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": [
+        {
+          "name": "example",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/sumber-daya",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "sumber-daya"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "content-type",
+              "value": "application/json"
+            },
+            {
+              "key": "date",
+              "value": "Tue, 20 Oct 2026 09:40:47 GMT"
+            },
+            {
+              "key": "content-length",
+              "value": "176"
+            }
+          ],
+          "cookie": [],
+          "body": "[\n  {\n    \"id\": 1,\n    \"nama\": \"Proyektor EPSON\",\n    \"jenis\": \"alat\",\n    \"stok\": 5\n  },\n  {\n    \"id\": 2,\n    \"nama\": \"Proyektor EPSON\",\n    \"jenis\": \"alat\",\n    \"stok\": 5\n  },\n  {\n    \"id\": 3,\n    \"nama\": \"Proyektor EPSON\",\n    \"jenis\": \"alat\",\n    \"stok\": 5\n  }\n]"
+        }
+      ]
+    },
+    {
+      "name": "Get All Peminjaman with Filters",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": [
+        {
+          "name": "example",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/peminjaman?tanggal=2026-11-02&status=aktif",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "peminjaman"
+              ],
+              "query": [
+                {
+                  "key": "tanggal",
+                  "value": "2026-11-02"
+                },
+                {
+                  "key": "status",
+                  "value": "aktif"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "content-type",
+              "value": "application/json"
+            },
+            {
+              "key": "date",
+              "value": "Tue, 20 Oct 2026 09:41:56 GMT"
+            },
+            {
+              "key": "content-length",
+              "value": "3"
+            }
+          ],
+          "cookie": [],
+          "body": "[]"
+        }
+      ]
+    },
+    {
+      "name": "Check Quota - Persona B",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": [
+        {
+          "name": "example",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/peminjam/Berlian/kuota?tanggal=2026-11-02",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "peminjam",
+                "Berlian",
+                "kuota"
+              ],
+              "query": [
+                {
+                  "key": "tanggal",
+                  "value": "2026-11-02"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "content-type",
+              "value": "application/json"
+            },
+            {
+              "key": "date",
+              "value": "Tue, 20 Oct 2026 09:42:36 GMT"
+            },
+            {
+              "key": "content-length",
+              "value": "81"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"peminjam\": \"Berlian\",\n  \"tanggal\": \"2026-11-02\",\n  \"terpakai\": 0,\n  \"maksimal\": 2,\n  \"sisa\": 2\n}"
+        }
+      ]
+    },
+    {
+      "name": "Delete Peminjaman",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": [
+        {
+          "name": "example",
+          "originalRequest": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/peminjaman/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "peminjaman",
+                "1"
+              ]
+            }
+          },
+          "status": "No Content",
+          "code": 204,
+          "_postman_previewlanguage": "text",
+          "header": [
+            {
+              "key": "date",
+              "value": "Tue, 20 Oct 2026 09:47:32 GMT"
+            }
+          ],
+          "cookie": [],
+          "body": ""
+        }
+      ]
+    },
+    {
+      "name": "Create Peminjaman",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": [
+        {
+          "name": "example",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"sumber_daya_id\": 5,\r\n  \"peminjam\": \"Berlian\",\r\n  \"tanggal\": \"2026-11-02\",\r\n  \"slot_mulai\": 1,\r\n  \"slot_selesai\": 3,\r\n  \"jumlah\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/peminjaman",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "peminjaman"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "content-type",
+              "value": "application/json"
+            },
+            {
+              "key": "date",
+              "value": "Tue, 20 Oct 2026 09:47:16 GMT"
+            },
+            {
+              "key": "content-length",
+              "value": "132"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"id\": 1,\n  \"sumber_daya_id\": 5,\n  \"peminjam\": \"Berlian\",\n  \"tanggal\": \"2026-11-02\",\n  \"slot_mulai\": 1,\n  \"slot_selesai\": 3,\n  \"jumlah\": 1,\n  \"status\": \"aktif\"\n}"
+        }
+      ]
+    }
+  ]
+}

@@ -29,7 +29,8 @@ func NewHandler() http.Handler {
 
 	// Endpoint Fitur Khas Persona B (Cek Quota)
 	mux.HandleFunc("GET /peminjam/{nama}/kuota", h.handleGetKuota)
-
+	mux.HandleFunc("GET /ringkasan", h.handleGetRingkasan)
+	
 	return mux
 }
 
@@ -285,6 +286,24 @@ func (h *Handler) handleGetKuota(w http.ResponseWriter, r *http.Request) {
 	}
 
 	res, statusCode, err := h.store.GetQuotaInfo(peminjam, tanggal)
+	if err != nil {
+		writeError(w, statusCode, err.Error())
+		return
+	}
+
+	writeJSON(w, 200, res)
+}
+
+// --- Handler Change Request A ---
+
+func (h *Handler) handleGetRingkasan(w http.ResponseWriter, r *http.Request) {
+	tanggal := r.URL.Query().Get("tanggal")
+	if tanggal == "" {
+		writeError(w, 400, "Query parameter tanggal wajib diisi")
+		return
+	}
+
+	res, statusCode, err := h.store.GetDashboardSummary(tanggal)
 	if err != nil {
 		writeError(w, statusCode, err.Error())
 		return

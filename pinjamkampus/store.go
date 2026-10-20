@@ -248,3 +248,64 @@ func (s *Store) GetQuotaInfo(peminjam string, tanggal string) (KuotaResponse, in
 		Sisa:     sisa,
 	}, 200, nil
 }
+
+// --- Change Request A Structs & Logic ---
+
+type RingkasanSumberDaya struct {
+	SumberDayaID     int    `json:"sumber_daya_id"`
+	Nama             string `json:"nama"`
+	JumlahPeminjaman int    `json:"jumlah_peminjaman"`
+}
+
+type RingkasanResponse struct {
+	Tanggal          string                `json:"tanggal"`
+	JumlahPeminjaman int                   `json:"jumlah_peminjaman"`
+	TotalUnitSlot    int                   `json:"total_unit_slot"`
+	PerSumberDaya    []RingkasanSumberDaya `json:"per_sumber_daya"`
+}
+
+func (s *Store) GetDashboardSummary(tanggal string) (RingkasanResponse, int, error) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+
+	if !isValidDate(tanggal) {
+		return RingkasanResponse{}, 400, fmt.Errorf("tanggal wajib diisi dan harus valid")
+	}
+
+	sdList := make([]SumberDaya, 0, len(s.sumberDayaMap))
+	for _, sd := range s.sumberDayaMap {
+		sdList = append(sdList, sd)
+	}
+	sort.Slice(sdList, func(i, j int) bool {
+		return sdList[i].ID < sdList[j].ID
+	})
+
+	countPerSD := make(map[int]int)
+	totalPeminjaman := 0
+	totalUnitSlot := 0
+
+	for _, p := range s.peminjamanMap {
+		if p.Tanggal == tanggal && p.Status == "aktif" {
+			totalPeminjaman++
+			slotsCount := p.SlotSelesai - p.SlotMulai + 1
+			totalUnitSlot += (p.Jumlah * slotsCount)
+			countPerSD[p.SumberDayaID]++
+		}
+	}
+
+	perSumberDaya := make([]RingkasanSumberDaya, 0, len(sdList))
+	for _, sd := range sdList {
+		perSumberDaya = append(perSumberDaya, RingkasanSumberDaya{
+			SumberDayaID:     sd.ID,
+			Nama:             sd.Nama,
+			JumlahPeminjaman: countPerSD[sd.ID],
+		})
+	}
+
+	return RingkasanResponse{
+		Tanggal:          tanggal,
+		JumlahPeminjaman: totalPeminjaman,
+		TotalUnitSlot:    totalUnitSlot,
+		PerSumberDaya:    perSumberDaya,
+	}, 200, nil
+}
